@@ -5,9 +5,114 @@
     android:layout_height="match_parent"
     tools:context="com.lxy.download.MainActivity">
 
-    <TextView
+    <RelativeLayout
+        android:id="@+id/layout1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="15dp">
+
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="30dp"
+            android:max="10" />
+
+        <Button
+            android:id="@+id/bt_pause"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/progress_bar"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="15dp"
+            android:onClick="downloadPause"
+            android:text="暂停下载" />
+
+        <Button
+            android:id="@+id/bt_start"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/progress_bar"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="15dp"
+            android:layout_toRightOf="@+id/bt_pause"
+            android:onClick="downloadStart"
+            android:text="开始下载" />
+
+        <Button
+            android:id="@+id/bt_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/progress_bar"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="15dp"
+            android:layout_toRightOf="@+id/bt_start"
+            android:onClick="downloadCancel"
+            android:text="取消下载" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/layout2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/layout1"
+        android:paddingBottom="15dp">
+
+        <ProgressBar
+            android:id="@+id/progress_bar2"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="30dp"
+            android:max="100" />
+
+        <Button
+            android:id="@+id/bt_pause2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/progress_bar2"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="15dp"
+            android:onClick="downloadPause2"
+            android:text="暂停下载" />
+
+        <Button
+            android:id="@+id/bt_start2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/progress_bar2"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="15dp"
+            android:layout_toRightOf="@+id/bt_pause2"
+            android:onClick="downloadStart2"
+            android:text="开始下载" />
+
+        <Button
+            android:id="@+id/bt_cancel2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/progress_bar2"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="15dp"
+            android:layout_toRightOf="@+id/bt_start2"
+            android:onClick="downloadCancel2"
+            android:text="取消下载" />
+
+    </RelativeLayout>
+
+    <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!" />
+        android:layout_below="@+id/layout2"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:onClick="startAll" />
+
 
 </RelativeLayout>
