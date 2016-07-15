@@ -1,13 +1,8 @@
 package com.lxy.download;
 
-import android.app.DownloadManager;
-import android.database.ContentObserver;
-import android.database.Cursor;
-import android.net.Uri;
-import android.os.Environment;
-import android.os.Handler;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.os.Environment;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -17,8 +12,7 @@ import com.liulishuo.filedownloader.FileDownloadListener;
 import com.liulishuo.filedownloader.FileDownloadQueueSet;
 import com.liulishuo.filedownloader.FileDownloader;
 
-import java.net.URI;
-import java.net.URL;
+import java.io.File;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
@@ -83,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
         FileDownloader.getImpl().pause(mDownloadId1);
     }
 
-    //开始下载
+    //开始下载1
     public void downloadStart(View view) {
         Toast.makeText(this, "start", Toast.LENGTH_SHORT).show();
         mDownloadId1 = createDownloadTask(HttpHelper.URL1, "test1.m4a").start();
@@ -93,6 +87,8 @@ public class MainActivity extends AppCompatActivity {
     //取消下载
     public void downloadCancel(View view) {
         Toast.makeText(this, "cancel", Toast.LENGTH_SHORT).show();
+        File file = new File(Environment.getExternalStorageDirectory() + "/DownloadFile/" + "test1.m4a");
+        file.delete();
     }
 
 
@@ -139,6 +135,12 @@ public class MainActivity extends AppCompatActivity {
 
 
         return baseDownloadTask;
+    }
+
+    //检查更新
+    public void checkUpdate(View view) {
+        Toast.makeText(this, "check", Toast.LENGTH_SHORT).show();
+
     }
 
 }
