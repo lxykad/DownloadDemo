@@ -9,7 +9,6 @@ import android.widget.Toast;
 
 import com.liulishuo.filedownloader.BaseDownloadTask;
 import com.liulishuo.filedownloader.FileDownloadListener;
-import com.liulishuo.filedownloader.FileDownloadQueueSet;
 import com.liulishuo.filedownloader.FileDownloader;
 
 import java.io.File;
@@ -110,18 +109,32 @@ public class MainActivity extends AppCompatActivity {
 
     public void startAll(View view) {
         Toast.makeText(this, "startAll", Toast.LENGTH_SHORT).show();
-        FileDownloadQueueSet queueSet = new FileDownloadQueueSet(mDownloadListener);
-        ArrayList<BaseDownloadTask> tasks = new ArrayList<>();
+//        FileDownloadQueueSet queueSet = new FileDownloadQueueSet(mDownloadListener);
+//        ArrayList<BaseDownloadTask> tasks = new ArrayList<>();
+//
+//        for (int i = 0; i < mUrlList.size(); i++) {
+//            tasks.add(FileDownloader.getImpl().create(mUrlList.get(i)));
+//        }
+//        // 由于是队列任务, 这里是我们假设了现在不需要每个任务都回调`FileDownloadList
+//        queueSet.disableCallbackProgressTimes();
+//        // 所有任务在下载失败的时候都自动重试一次
+//        queueSet.setAutoRetryTimes(1);
+//
+//        queueSet.downloadTogether(tasks);
 
         for (int i = 0; i < mUrlList.size(); i++) {
-            tasks.add(FileDownloader.getImpl().create(mUrlList.get(i)));
-        }
-        // 由于是队列任务, 这里是我们假设了现在不需要每个任务都回调`FileDownloadList
-        queueSet.disableCallbackProgressTimes();
-        // 所有任务在下载失败的时候都自动重试一次
-        queueSet.setAutoRetryTimes(1);
 
-        queueSet.downloadTogether(tasks);
+            FileDownloader.getImpl().create(mUrlList.get(i))
+                   // 由于是队列任务, 这里是我们假设了现在不需要每个任务都回调`FileDownloadListener#progress`, 我们只关系每个任务是否完成, 所以这里这样设置可以很有效的减少ipc.
+                   .setCallbackProgressTimes(0)
+                   .setListener(mDownloadListener)
+                   .ready();
+        }
+        //串行下载
+        FileDownloader.getImpl().start(mDownloadListener, true);
+
+        //并行下载
+       // FileDownloader.getImpl().start(mDownloadListener, false);
 
     }
 
@@ -132,7 +145,6 @@ public class MainActivity extends AppCompatActivity {
                 .setCallbackProgressTimes(300)
                 .setMinIntervalUpdateSpeed(400)
                 .setListener(mDownloadListener);
-
 
         return baseDownloadTask;
     }
